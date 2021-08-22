@@ -2,11 +2,16 @@ const inquirer = require('inquirer');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
-const pageTemplate = require('./src/pageTemplate');
-const writeFile = require('./src/genHTML')
+const htmlTemplate = require('./src/pageTemplate');
+//const writeFile = require('./src/genHTML');
 
-const team = [];
+// Empty team array that will be populated and sent to the HTML template
+let team = [];
+team.manager = [];
+team.engineer = [];
+team.intern = [];
 
+// Getting the Manager information
 const promptManager = () => {
     return inquirer.prompt([
         {
@@ -63,17 +68,19 @@ const promptManager = () => {
         }
     ])
     .then(data => {
+        // Manager information is passed into a Manager object
         this.manager = new Manager(data.name, data.id, data.email, data.officeNum);
         this.manager.getRole();
 
-        team.push(this.manager);
-
-        console.log(team)
+        // Manager object is pushed into the team array
+        team.manager.push(this.manager);
         return team;
     })
-}
+};
 
-const promptTeam = () => {
+// Getting team information
+const promptTeam = teamData => {
+    // Asking if they would like to add an Engineer, Intern, or be finished adding team members
     return inquirer.prompt(
         {
             type: 'list',
@@ -83,8 +90,9 @@ const promptTeam = () => {
         }
     )
     .then(({ teamAdd }) => {
+        // Getting Engineer data
         if(teamAdd === 'Add Engineer') {
-            inquirer.prompt([
+            return inquirer.prompt([
                 {
                     type: 'input',
                     name: 'name',
@@ -139,15 +147,18 @@ const promptTeam = () => {
                 }
             ])
             .then((data) => {
+                // Passing the Engineer data into a Engineer object
                 this.engineer = new Engineer(data.name, data.id, data.email, data.github);
                 this.engineer.getRole();
 
-                team.push(this.engineer);
+                // Pushing the Engineer object into the team array
+                teamData.engineer.push(this.engineer);
 
-                return promptTeam();
+                return promptTeam(teamData);
             })
         } else if (teamAdd === 'Add Intern') {
-            inquirer.prompt([
+            // Getting intern data
+            return inquirer.prompt([
                 {
                     type: 'input',
                     name: 'name',
@@ -202,25 +213,36 @@ const promptTeam = () => {
                 }
             ])
             .then((data) => {
+                // Intern data is made into an Intern object
                 this.intern = new Intern(data.name, data.id, data.email, data.school);
                 this.intern.getRole();
 
-                team.push(this.intern);
+                // Intern object is sent to team array
+                teamData.intern.push(this.intern);
 
-                return promptTeam();
+                return promptTeam(teamData);
             })
         } else if(teamAdd === 'Done') {
-            console.log(team);
-            return team;
+            // Taking the team array and passing it to the HTML Template
+            return teamData;
         }
     })
-}
+};
+
+
+// App starts by asking for Manager info, then getting the team data. 
+// Team data is then sent to the HTML template to create cards for every
+// team member. Once cards are created, the html is sent to the writeFile
+// Function to create the HTML Index page.
 
 promptManager()
-    .then(promptTeam)
+.then(data => {
+    return promptTeam(data)
     .then(data => {
-        return pageTemplate(data);
+        // console.log(data);
+        return htmlTemplate(data);
     })
-    .then(htmlData => {
-        return writeFile(htmlData);
-    })
+})
+.catch(err => {
+    console.log(err);
+});

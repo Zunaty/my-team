@@ -1,9 +1,20 @@
-function managerCard(data) {
+const managerCard = (data) => {
+    
+};
 
-}
+const engineerCard = (data) => {
+    console.log(data);
+};
 
-module.exports = pageTemplate = (teamData) => {
+const internCard = (data) => {
+    console.log(data);
+};
+
+// Exporting the HTML code to the writeFile function through the index
+module.exports = teamData => {
     console.log(teamData);
+
+
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -25,6 +36,9 @@ module.exports = pageTemplate = (teamData) => {
             </header>
 
             <main class="container-fluid row m-3">
+                ${managerCard(teamData.manager)}
+                ${engineerCard(teamData.engineer)}
+                ${internCard(teamData.intern)}
                 <div class="card m-2" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
@@ -37,5 +51,5 @@ module.exports = pageTemplate = (teamData) => {
             </main>
         </body>
     </html>
-    `
-}
+    `;
+};
