@@ -3,6 +3,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const pageTemplate = require('./src/pageTemplate');
+const writeFile = require('./src/genHTML')
 
 const team = [];
 
@@ -218,5 +219,8 @@ const promptTeam = () => {
 promptManager()
     .then(promptTeam)
     .then(data => {
-        console.log(data);
+        return pageTemplate(data);
+    })
+    .then(htmlData => {
+        return writeFile(htmlData);
     })
