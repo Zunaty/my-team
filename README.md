@@ -22,6 +22,6 @@ This is my GitHub: [Zunaty](https://github.com/Zunaty)
 
 ### Preview and Video Link
 
-[Video Walkthrough]()
+[Video Walkthrough](https://drive.google.com/file/d/1VR0sO29ggoGT47rhqlKgF3c63_As-ODw/view)
 
 ![Preview](./assets/images/preview.png)
