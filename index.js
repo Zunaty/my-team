@@ -3,7 +3,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 const htmlTemplate = require('./src/pageTemplate');
-//const writeFile = require('./src/genHTML');
+const writeFile = require('./src/genHTML');
 
 // Empty team array that will be populated and sent to the HTML template
 let team = [];
@@ -239,8 +239,10 @@ promptManager()
 .then(data => {
     return promptTeam(data)
     .then(data => {
-        // console.log(data);
         return htmlTemplate(data);
+    })
+    .then(data => {
+        return writeFile(data);
     })
 })
 .catch(err => {

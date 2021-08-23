@@ -1,21 +1,64 @@
 const managerCard = (data) => {
-    
+    return `
+    <div class="card m-2" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">${data[0].name}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Role: ${data[0].role} ID: ${data[0].id}</h6>
+            <p class="card-text">Office Number: ${data[0].officeNum}</p>
+            <a href="${data[0].email}" class="card-link">Contact Via Email</a>
+        </div>
+    </div>
+    `;
 };
 
 const engineerCard = (data) => {
-    console.log(data);
+    if (!data) {
+        return '';
+    }
+
+    let y = '';
+    for(let i = 0; i < data.length; i++) {
+        let x = `
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${data[i].name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role} ID: ${data[i].id}</h6>
+                <a href="${data[i].github}" class="card-link">Check Github</a>
+                <a href="${data[i].email}" class="card-link">Contact Via Email</a>
+            </div>
+        </div>
+        `;
+        y = x + y;
+    }
+    return y;
 };
 
 const internCard = (data) => {
-    console.log(data);
+    if (!data) {
+        return '';
+    }
+    
+    let y = '';
+    for(let i = 0; i < data.length; i++) {
+        let x =  `
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${data[i].name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role} ID: ${data[i].id}</h6>
+                <p class="card-text">School Name: ${data[i].school}</p>
+                <a href="${data[i].email}" class="card-link">Contact Via Email</a>
+            </div>
+        </div>
+        `;
+        y = x + y;
+    }
+    return y;
 };
 
 // Exporting the HTML code to the writeFile function through the index
 module.exports = teamData => {
-    console.log(teamData);
 
-
-    return `
+return `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -36,18 +79,9 @@ module.exports = teamData => {
             </header>
 
             <main class="container-fluid row m-3">
-                ${managerCard(teamData.manager)}
-                ${engineerCard(teamData.engineer)}
-                ${internCard(teamData.intern)}
-                <div class="card m-2" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
+                ${managerCard(teamData.manager)} \n
+                ${engineerCard(teamData.engineer)} \n
+                ${internCard(teamData.intern)} \n
             </main>
         </body>
     </html>

@@ -1,20 +1,20 @@
 const fs = require('fs');
 
 // Writing the HTML file
-// const writeFile = fileContent => {
-//   return new Promise((resolve, reject) => {
-//     fs.writeFile('./dist/index.html', fileContent, err => {
-//       if (err) {
-//         reject(err);
-//         return;
-//       }
+const writeFile = htmltemp => {
+    return new Promise((resolve, reject) => {
+      fs.writeFile('./dist/index.html', htmltemp, err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+  
+        resolve({
+          ok: true,
+          message: 'File created!'
+        });
+      });
+    });
+}
 
-//       resolve({
-//         ok: true,
-//         message: 'File created!'
-//       });
-//     });
-//   });
-// };
-
-// module.exports = writeFile();
+module.exports = writeFile;
