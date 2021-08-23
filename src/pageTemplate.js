@@ -1,13 +1,14 @@
 const managerCard = (data) => {
     return `
-    <div class="card m-2" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">${data[0].name}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Role: ${data[0].role} ID: ${data[0].id}</h6>
-            <p class="card-text">Office Number: ${data[0].officeNum}</p>
-            <a href="${data[0].email}" class="card-link">Contact Via Email</a>
+        <div class="card m-2" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${data[0].name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Role: ${data[0].role}</h6>
+                <h7 class="card-subtitle mb-2 text-muted">ID: ${data[0].id}</h7>
+                <p class="card-text">Office Number: ${data[0].officeNum}</p>
+                <a href="mailto:${data[0].email}" target="_blank" class="card-link">Contact Via Email</a>
+            </div>
         </div>
-    </div>
     `;
 };
 
@@ -19,16 +20,17 @@ const engineerCard = (data) => {
     let y = '';
     for(let i = 0; i < data.length; i++) {
         let x = `
-        <div class="card m-2" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">${data[i].name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role} ID: ${data[i].id}</h6>
-                <a href="${data[i].github}" class="card-link">Check Github</a>
-                <a href="${data[i].email}" class="card-link">Contact Via Email</a>
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${data[i].name}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role}</h6>
+                    <h7 class="card-subtitle mb-2 text-muted">ID: ${data[i].id}</h7>
+                    <p class="card-text"><a href="https://github.com/${data[i].github}" class="card-link">Check Github</a></p>
+                    <a href="mailto:${data[i].email}" target="_blank" class="card-link">Contact Via Email</a>
+                </div>
             </div>
-        </div>
         `;
-        y = x + y;
+        y = y + x;
     }
     return y;
 };
@@ -41,16 +43,17 @@ const internCard = (data) => {
     let y = '';
     for(let i = 0; i < data.length; i++) {
         let x =  `
-        <div class="card m-2" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">${data[i].name}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role} ID: ${data[i].id}</h6>
-                <p class="card-text">School Name: ${data[i].school}</p>
-                <a href="${data[i].email}" class="card-link">Contact Via Email</a>
+            <div class="card m-2" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${data[i].name}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Role: ${data[i].role} ID: ${data[i].id}</h6>
+                    <h7 class="card-subtitle mb-2 text-muted">ID: ${data[i].id}</h7>
+                    <p class="card-text">School Name: ${data[i].school}</p>
+                    <a href="mailto:${data[i].email}" target="_blank" class="card-link">Contact Via Email</a>
+                </div>
             </div>
-        </div>
         `;
-        y = x + y;
+        y = y + x;
     }
     return y;
 };
